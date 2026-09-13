@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pradeep Kumar Balasubramanian — Embedded Software Engineer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1015'/%3E%3Crect x='10' y='10' width='12' height='12' fill='none' stroke='%23E8A33D' stroke-width='2'/%3E%3Cline x1='4' y1='13' x2='10' y2='13' stroke='%23E8A33D' stroke-width='2'/%3E%3Cline x1='4' y1='19' x2='10' y2='19' stroke='%23E8A33D' stroke-width='2'/%3E%3Cline x1='22' y1='13' x2='28' y2='13' stroke='%23E8A33D' stroke-width='2'/%3E%3Cline x1='22' y1='19' x2='28' y2='19' stroke='%23E8A33D' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1015;
+    --panel:#10171E;
+    --panel-2:#0D1319;
+    --line:#233039;
+    --line-strong:#354550;
+    --text:#E4EAEE;
+    --text-dim:#8B99A3;
+    --text-faint:#566470;
+    --accent:#E8A33D;
+    --accent-dim:#8A6A34;
+    --accent-soft:rgba(232,163,61,0.10);
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', system-ui, sans-serif;
+    --maxw:900px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  section{scroll-margin-top:64px;}
+
+  a{color:inherit;}
+  ::selection{background:var(--accent-soft); color:var(--accent);}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Top nav ---------- */
+  .topnav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,16,21,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:56px;
+  }
+  .topnav .id{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .topnav .id b{color:var(--text); font-weight:600;}
+  .topnav nav{
+    display:flex;
+    gap:22px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .topnav nav a{
+    text-decoration:none;
+    color:var(--text-dim);
+    padding:4px 2px;
+    border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .topnav nav a:hover{color:var(--accent); border-color:var(--accent-dim);}
+  .topnav nav a.active{color:var(--accent); border-color:var(--accent);}
+  @media (max-width:640px){
+    .topnav nav{gap:14px;}
+    .topnav .id{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:64px 0 0;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    opacity:0.45;
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative; z-index:1;}
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 250px;
+    gap:0 48px;
+    align-items:start;
+    padding-bottom:44px;
+  }
+  .hero-main{
+    position:relative;
+    padding-right:48px;
+  }
+  .hero-main::after{
+    content:"";
+    position:absolute;
+    top:4px;
+    right:0;
+    bottom:4px;
+    width:1px;
+    background-image:repeating-linear-gradient(to bottom, var(--accent-dim) 0 6px, transparent 6px 14px);
+    opacity:0.7;
+  }
+  .hero-side{
+    padding-top:6px;
+  }
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-main{padding-right:0;}
+    .hero-main::after{display:none;}
+    .hero-side{padding-top:8px;}
+  }
+
+  .term{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-faint);
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    padding:14px 16px;
+    min-height:96px;
+    margin-bottom:32px;
+  }
+  .term .ln{white-space:pre; opacity:0; animation:fadeIn .2s forwards;}
+  .term .cursor{
+    display:inline-block;
+    width:7px; height:14px;
+    background:var(--accent);
+    vertical-align:-2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes fadeIn{to{opacity:1;}}
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero h1{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:clamp(28px, 4.4vw, 44px);
+    line-height:1.15;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  .hero .role{
+    font-size:clamp(16px, 2.2vw, 20px);
+    color:var(--accent);
+    font-family:var(--mono);
+    margin:0 0 22px;
+  }
+  .hero .location{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    margin:0 0 22px;
+  }
+
+  .flags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:0;
+  }
+  .flag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    border:1px solid var(--line-strong);
+    padding:5px 10px;
+    background:var(--panel);
+  }
+
+  table.spec{
+    width:100%;
+    border-collapse:collapse;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  table.spec caption{
+    text-align:left;
+    color:var(--text-faint);
+    font-size:11.5px;
+    margin-bottom:10px;
+  }
+  table.spec tr{border-top:1px solid var(--line);}
+  table.spec tr:last-child{border-bottom:1px solid var(--line);}
+  table.spec td{padding:9px 2px;}
+  table.spec td:first-child{color:var(--text-dim);}
+  table.spec td:last-child{color:var(--accent); text-align:right; font-weight:600; white-space:nowrap; padding-left:10px;}
+
+  /* ---------- Sections ---------- */
+  section{
+    padding:56px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .sec-num{
+    font-family:var(--mono);
+    color:var(--accent);
+    font-size:14px;
+    flex-shrink:0;
+  }
+  .sec-head h2{
+    font-size:22px;
+    font-weight:600;
+    margin:0;
+    font-family:var(--sans);
+  }
+  .sec-rule{
+    flex:1;
+    height:1px;
+    background:var(--line);
+    transform:translateY(-6px);
+  }
+
+  .summary p{
+    max-width:68ch;
+    color:var(--text-dim);
+    font-size:16px;
+  }
+
+  /* ---------- Experience ---------- */
+  .job{margin-bottom:40px;}
+  .job:last-child{margin-bottom:0;}
+  .job-head{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px 20px;
+    margin-bottom:10px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+  }
+  .job-title{font-weight:600; font-size:16.5px;}
+  .job-org{color:var(--text-dim); font-size:14.5px;}
+  .job-meta{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+    text-align:right;
+  }
+  .job ul{
+    margin:0;
+    padding-left:0;
+    list-style:none;
+  }
+  .job li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:9px;
+    color:var(--text-dim);
+    font-size:15px;
+  }
+  .job li::before{
+    content:"›";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+    font-family:var(--mono);
+  }
+
+  /* ---------- Projects ---------- */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  @media (max-width:680px){.proj-grid{grid-template-columns:1fr;}}
+
+  .module{
+    border:1px solid var(--line);
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+    transition:border-color .15s ease;
+  }
+  .module:hover{border-color:var(--line-strong);}
+  .module-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line);
+  }
+  .module-id{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+  }
+  .module-link{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .module-link:hover{color:var(--accent); border-color:var(--accent);}
+  .module-body{
+    padding:16px 14px 18px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .module-body h3{
+    font-size:16px;
+    font-weight:600;
+    margin:0 0 8px;
+  }
+  .module-body p{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0 0 14px;
+    flex:1;
+  }
+  .module-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .module-tags .bit{font-size:11.5px; padding:4px 8px;}
+  .module.placeholder{
+    border-style:dashed;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px 20px;
+  }
+  .module.placeholder p{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+    max-width:32ch;
+    margin:0 auto;
+  }
+
+  /* ---------- Register map (skills) ---------- */
+  .reg{
+    border:1px solid var(--line);
+    margin-bottom:14px;
+  }
+  .reg:last-child{margin-bottom:0;}
+  .reg-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 14px;
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+  }
+  .reg-addr{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+    flex-shrink:0;
+  }
+  .reg-name{
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--text);
+    font-weight:600;
+  }
+  .reg-body{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:14px;
+  }
+  .bit{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    border:1px solid var(--line-strong);
+    padding:5px 9px;
+    background:var(--panel-2);
+  }
+
+  /* ---------- Education ---------- */
+  .edu-item{
+    display:flex;
+    gap:20px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .edu-item:last-child{border-bottom:1px solid var(--line);}
+  .edu-date{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+    width:130px;
+    flex-shrink:0;
+    padding-top:2px;
+  }
+  .edu-body b{display:block; font-size:16px; margin-bottom:2px;}
+  .edu-body .school{color:var(--text-dim); font-size:14.5px; margin-bottom:6px;}
+  .edu-body .proj{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+  }
+
+  /* ---------- Publication ---------- */
+  .pub{
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--text-dim);
+    border-left:2px solid var(--accent-dim);
+    padding:4px 0 4px 16px;
+    max-width:68ch;
+  }
+
+  /* ---------- Languages / interests ---------- */
+  .twocol{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  @media (max-width:640px){.twocol{grid-template-columns:1fr;}}
+  .twocol h3{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-faint);
+    font-weight:500;
+    margin:0 0 14px;
+  }
+  .lang-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:14.5px;
+    padding:7px 0;
+    border-top:1px solid var(--line);
+  }
+  .lang-row span:last-child{color:var(--text-dim); font-family:var(--mono); font-size:13px;}
+  .interests p{color:var(--text-dim); font-size:14.5px; max-width:44ch;}
+
+  /* ---------- Contact / pinout ---------- */
+  .pinout{
+    border:1px solid var(--line);
+    background:var(--panel);
+  }
+  .pin{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:16px 18px;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    color:var(--text);
+    transition:background .15s ease;
+  }
+  .pin:last-child{border-bottom:none;}
+  .pin:hover{background:var(--panel-2);}
+  .pin-num{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+    width:56px;
+    flex-shrink:0;
+  }
+  .pin-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    width:90px;
+    flex-shrink:0;
+  }
+  .pin-value{
+    font-size:15px;
+    word-break:break-word;
+  }
+  @media (max-width:560px){
+    .pin{flex-wrap:wrap; gap:4px 18px;}
+    .pin-label{width:auto;}
+  }
+
+  footer{
+    padding:28px 0 60px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="wrap">
+    <div class="id"><b>P. Kumar B.</b> — embedded software engineer</div>
+    <nav>
+      <a href="#summary">Summary</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="hero-bg" viewBox="0 0 900 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#233039" stroke-width="1" fill="none">
+      <path d="M0 40 H260 V90 H520" />
+      <path d="M0 140 H160 V180 H420 V220" />
+      <path d="M900 60 H660 V110 H480" />
+      <path d="M900 200 H760 V250 H540 V290" />
+      <path d="M340 0 V60" />
+      <path d="M620 0 V40" />
+      <path d="M200 320 V260" />
+    </g>
+    <g fill="#233039">
+      <circle cx="260" cy="40" r="3"/>
+      <circle cx="520" cy="90" r="3"/>
+      <circle cx="160" cy="140" r="3"/>
+      <circle cx="420" cy="180" r="3"/>
+      <circle cx="660" cy="60" r="3"/>
+      <circle cx="480" cy="110" r="3"/>
+      <circle cx="760" cy="200" r="3"/>
+      <circle cx="540" cy="250" r="3"/>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="term" id="term" aria-hidden="true"></div>
+
+        <h1>Pradeep Kumar Balasubramanian</h1>
+        <div class="role">Embedded Software Engineer</div>
+        <div class="location">Pune, India — open to relocation</div>
+
+        <div class="flags">
+          <span class="flag">Automotive telematics</span>
+          <span class="flag">RTOS &amp; bootloaders</span>
+          <span class="flag">CAN / UDS / J1939</span>
+          <span class="flag">C / C++ / Python</span>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <table class="spec">
+          <caption>Profile characteristics</caption>
+          <tr><td>Experience</td><td>4+ years</td></tr>
+          <tr><td>Protocols</td><td>10</td></tr>
+          <tr><td>MCU / SoC platforms</td><td>8</td></tr>
+          <tr><td>Companies</td><td>3</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="summary" class="summary">
+    <div class="sec-head"><span class="sec-num">1.0</span><h2>Summary</h2><span class="sec-rule"></span></div>
+    <p>Embedded software engineer with 4+ years building firmware in C/C++ and Python across automotive and industrial systems. Background spans RTOS-based real-time design, bootloader development, and communication-protocol integration — with hands-on production experience in automotive telematics, ECU diagnostics, and IoT device firmware.</p>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><span class="sec-num">2.0</span><h2>Experience</h2><span class="sec-rule"></span></div>
+
+    <div class="job">
+      <div class="job-head">
+        <div>
+          <div class="job-title">Embedded Systems Engineer</div>
+          <div class="job-org">Intangles Lab Pvt Ltd — Pune, India</div>
+        </div>
+        <div class="job-meta">Aug 2024 – Present</div>
+      </div>
+      <ul>
+        <li>Engineered telematics firmware and custom bootloaders on Renesas RA Series MCUs, implementing flash memory management for backup firmware images, update flags, and persistent configuration data.</li>
+        <li>Architected Quectel EC200 (QuecOpen / QL_RTOS) firmware to manage end-to-end CAN polling, ECU communication, cloud routing, and FOTA workflows.</li>
+        <li>Integrated and validated automotive communication protocols including CAN, J1939, ISO 15765-4 (UDS), XCP, K-Line, and J1708 for vehicle diagnostics.</li>
+        <li>Performed system-level debugging, performance optimisation, and fault analysis to improve firmware stability and communication reliability.</li>
+        <li>Collaborated with hardware, backend, and QA teams to support firmware validation, device scalability, and production readiness.</li>
+        <li>Developed a Python application to automate ECU FOTA workflows.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div>
+          <div class="job-title">Embedded Engineer</div>
+          <div class="job-org">Nanotronics Scientific Solutions — Coimbatore, India</div>
+        </div>
+        <div class="job-meta">Jul 2020 – Aug 2022</div>
+      </div>
+      <ul>
+        <li>Developed production-ready embedded firmware for IoT devices, industrial fuel dispensers, and home automation systems.</li>
+        <li>Implemented and optimised multi-protocol communication using UART, MODBUS, SPI, and MQTT for reliable real-time data exchange.</li>
+        <li>Integrated FreeRTOS, designing tasks, queues, and timers for deterministic scheduling and efficient system performance.</li>
+        <li>Conducted hardware–software debugging and system optimisation, improving product reliability and reducing field issues.</li>
+        <li>Supported product bring-up, testing, and deployment across ESP32, ESP8266, STM32, and PIC platforms.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div>
+          <div class="job-title">Project Intern</div>
+          <div class="job-org">SAEINDIA — Bengaluru, India</div>
+        </div>
+        <div class="job-meta">Jul 2019 – Aug 2019</div>
+      </div>
+      <ul>
+        <li>Led electronics and embedded systems development for a Range-Extended Electric Vehicle (REEV) student project, conducted in collaboration with General Motors.</li>
+        <li>Contributed to embedded control logic, system integration, and vehicle performance validation.</li>
+        <li>Collaborated with mechanical and powertrain teams for end-to-end system integration.</li>
+        <li>Awarded Best Performance and Runner-up at a national-level competition.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="sec-num">3.0</span><h2>Projects</h2><span class="sec-rule"></span></div>
+
+    <!--
+      HOW TO ADD A PROJECT
+      Copy one <div class="module"> block below, then edit:
+      - module-id: any short tag, e.g. IC2, IC3
+      - module-link href: your GitHub repo URL
+      - h3: project name
+      - p: one or two sentence description
+      - .bit spans: tech/tools used
+      Delete the "placeholder" module once you've added a real one.
+    -->
+
+    <div class="proj-grid">
+
+      <div class="module">
+        <div class="module-head">
+          <span class="module-id">IC1</span>
+          <a class="module-link" href="https://github.com/your-username/your-repo" target="_blank" rel="noopener">View repo →</a>
+        </div>
+        <div class="module-body">
+          <h3>Project name</h3>
+          <p>One or two sentences on what it does and the problem it solves.</p>
+          <div class="module-tags">
+            <span class="bit">C</span><span class="bit">FreeRTOS</span><span class="bit">STM32</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module placeholder">
+        <p>+ add another project<br>duplicate a module block above</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="sec-num">4.0</span><h2>Register map — skills</h2><span class="sec-rule"></span></div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x00</span><span class="reg-name">Programming</span></div>
+      <div class="reg-body">
+        <span class="bit">Embedded C</span><span class="bit">C++</span><span class="bit">Python</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x04</span><span class="reg-name">Embedded platforms</span></div>
+      <div class="reg-body">
+        <span class="bit">ARM Cortex-M (STM32)</span><span class="bit">Renesas RA Series</span><span class="bit">Renesas RH850</span>
+        <span class="bit">ESP32</span><span class="bit">ESP8266</span><span class="bit">PIC</span>
+        <span class="bit">Arduino</span><span class="bit">Raspberry Pi</span><span class="bit">Quectel EC200 LTE</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x08</span><span class="reg-name">RTOS &amp; embedded systems</span></div>
+      <div class="reg-body">
+        <span class="bit">FreeRTOS</span><span class="bit">QL_RTOS (QuecOpen)</span><span class="bit">Bootloader development</span>
+        <span class="bit">Interrupt handling</span><span class="bit">Low-power design</span><span class="bit">Firmware reprogramming</span>
+        <span class="bit">Real-time systems</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x0C</span><span class="reg-name">Protocols</span></div>
+      <div class="reg-body">
+        <span class="bit">CAN</span><span class="bit">J1939</span><span class="bit">UDS (ISO 15765-4)</span>
+        <span class="bit">XCP</span><span class="bit">K-Line</span><span class="bit">J1708</span>
+        <span class="bit">UART</span><span class="bit">SPI</span><span class="bit">I2C</span>
+        <span class="bit">MODBUS</span><span class="bit">MQTT</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x10</span><span class="reg-name">Firmware &amp; debug</span></div>
+      <div class="reg-body">
+        <span class="bit">System debugging</span><span class="bit">Hardware–software integration</span><span class="bit">Firmware bring-up</span>
+        <span class="bit">Flash memory management</span><span class="bit">Performance optimisation</span><span class="bit">Fault analysis</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x14</span><span class="reg-name">Tools &amp; IDEs</span></div>
+      <div class="reg-body">
+        <span class="bit">Renesas e² studio</span><span class="bit">STM32CubeIDE</span><span class="bit">Keil µVision</span>
+        <span class="bit">Arduino IDE</span><span class="bit">VS Code</span><span class="bit">Git / GitHub</span>
+        <span class="bit">Logic analyzer</span><span class="bit">Oscilloscope</span><span class="bit">MATLAB</span>
+        <span class="bit">ROS</span><span class="bit">AutoCAD</span>
+      </div>
+    </div>
+
+    <div class="reg">
+      <div class="reg-head"><span class="reg-addr">0x18</span><span class="reg-name">Collaboration &amp; OS</span></div>
+      <div class="reg-body">
+        <span class="bit">Jira</span><span class="bit">Confluence</span><span class="bit">Windows</span><span class="bit">Linux</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head"><span class="sec-num">5.0</span><h2>Education</h2><span class="sec-rule"></span></div>
+
+    <div class="edu-item">
+      <div class="edu-date">Sep 2022 – Dec 2023</div>
+      <div class="edu-body">
+        <b>Postgraduate Certificate, Intelligent Robotics</b>
+        <div class="school">University of York — York, United Kingdom</div>
+        <div class="proj">Key projects: autonomous robotic car · robotic arm · rescue robot (ROS)</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-date">Jul 2016 – Nov 2020</div>
+      <div class="edu-body">
+        <b>B.E., Electronics and Communication Engineering</b>
+        <div class="school">Sri Shakthi Institute of Engineering and Technology — Coimbatore, India</div>
+        <div class="proj">Key project: Range Extended Electric Vehicle</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publication">
+    <div class="sec-head"><span class="sec-num">6.0</span><h2>Publication</h2><span class="sec-rule"></span></div>
+    <div class="pub">
+      Automotive Electronic System Controlling the Range Extended Electric Vehicle — International Journal of Engineering Research &amp; Technology (IJERT), ICEECT 2020, Volume 8, Issue 17.
+    </div>
+  </section>
+
+  <section id="misc">
+    <div class="sec-head"><span class="sec-num">7.0</span><h2>Languages &amp; interests</h2><span class="sec-rule"></span></div>
+    <div class="twocol">
+      <div>
+        <h3>Languages</h3>
+        <div class="lang-row"><span>English</span><span>Professional</span></div>
+        <div class="lang-row"><span>Tamil</span><span>Native</span></div>
+        <div class="lang-row"><span>Hindi</span><span>Professional</span></div>
+        <div class="lang-row"><span>Japanese</span><span>Beginner</span></div>
+      </div>
+      <div class="interests">
+        <h3>Interests</h3>
+        <p>Embedded systems research, automotive telematics, firmware optimisation, open-source contributions, learning new microcontroller architectures, and robotics development.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head"><span class="sec-num">8.0</span><h2>Contact — pinout</h2><span class="sec-rule"></span></div>
+    <div class="pinout">
+      <a class="pin" href="mailto:pradeepkumarb.official@outlook.com">
+        <span class="pin-num">PIN 1</span><span class="pin-label">EMAIL</span>
+        <span class="pin-value">pradeepkumarb.official@outlook.com</span>
+      </a>
+      <a class="pin" href="tel:+918349022220">
+        <span class="pin-num">PIN 2</span><span class="pin-label">PHONE</span>
+        <span class="pin-value">+91 83490 22220</span>
+      </a>
+      <a class="pin" href="https://linkedin.com/in/pradeepkumarbofficial" target="_blank" rel="noopener">
+        <span class="pin-num">PIN 3</span><span class="pin-label">LINKEDIN</span>
+        <span class="pin-value">linkedin.com/in/pradeepkumarbofficial</span>
+      </a>
+      <div class="pin" style="cursor:default;">
+        <span class="pin-num">PIN 4</span><span class="pin-label">LOCATION</span>
+        <span class="pin-value">Pune, India — open to relocation</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Last updated 2026</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lines = [
+    "&gt; loading profile.bin ...",
+    "&gt; module: embedded_engineer ... OK",
+    "&gt; mounting experience partition ... OK",
+    "&gt; ready_"
+  ];
+  var term = document.getElementById('term');
+  if(!term) return;
+
+  if(reduce){
+    term.innerHTML = lines.map(function(l){return '<div class="ln">'+l+'</div>';}).join('');
+    return;
+  }
+
+  var i = 0;
+  function next(){
+    if(i >= lines.length){
+      var last = term.querySelector('.ln:last-child');
+      if(last) last.innerHTML += '<span class="cursor"></span>';
+      return;
+    }
+    var div = document.createElement('div');
+    div.className = 'ln';
+    div.innerHTML = lines[i];
+    term.appendChild(div);
+    i++;
+    setTimeout(next, 260);
+  }
+  next();
+})();
+
+(function(){
+  var sections = document.querySelectorAll('main section[id]');
+  var links = document.querySelectorAll('.topnav nav a');
+  if(!sections.length || !links.length || !('IntersectionObserver' in window)) return;
+
+  var map = {};
+  links.forEach(function(l){ map[l.getAttribute('href').slice(1)] = l; });
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var link = map[entry.target.id];
+        if(link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
+</body>
+</html>
