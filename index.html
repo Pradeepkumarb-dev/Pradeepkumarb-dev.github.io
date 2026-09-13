@@ -106,59 +106,31 @@
   /* ---------- Hero ---------- */
   .hero{
     position:relative;
-    padding:64px 0 0;
+    padding:56px 0 0;
     overflow:hidden;
     border-bottom:1px solid var(--line);
+    text-align:center;
   }
   .hero-bg{
     position:absolute;
     inset:0;
     z-index:0;
-    opacity:0.45;
+    opacity:0.4;
     pointer-events:none;
   }
   .hero .wrap{position:relative; z-index:1;}
 
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1fr 250px;
-    gap:0 48px;
-    align-items:start;
-    padding-bottom:44px;
-  }
-  .hero-main{
-    position:relative;
-    padding-right:48px;
-  }
-  .hero-main::after{
-    content:"";
-    position:absolute;
-    top:4px;
-    right:0;
-    bottom:4px;
-    width:1px;
-    background-image:repeating-linear-gradient(to bottom, var(--accent-dim) 0 6px, transparent 6px 14px);
-    opacity:0.7;
-  }
-  .hero-side{
-    padding-top:6px;
-  }
-  @media (max-width:760px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-main{padding-right:0;}
-    .hero-main::after{display:none;}
-    .hero-side{padding-top:8px;}
-  }
-
   .term{
     font-family:var(--mono);
-    font-size:13px;
+    font-size:12.5px;
     color:var(--text-faint);
     border:1px solid var(--line);
     background:var(--panel-2);
-    padding:14px 16px;
-    min-height:96px;
-    margin-bottom:32px;
+    padding:12px 16px;
+    min-height:88px;
+    max-width:380px;
+    margin:0 auto 36px;
+    text-align:left;
   }
   .term .ln{white-space:pre; opacity:0; animation:fadeIn .2s forwards;}
   .term .cursor{
@@ -171,32 +143,39 @@
   @keyframes fadeIn{to{opacity:1;}}
   @keyframes blink{50%{opacity:0;}}
 
+  .title-block{
+    border-top:1px solid var(--line-strong);
+    border-bottom:1px solid var(--line-strong);
+    padding:34px 0;
+    margin-bottom:36px;
+  }
   .hero h1{
     font-family:var(--mono);
-    font-weight:600;
-    font-size:clamp(28px, 4.4vw, 44px);
-    line-height:1.15;
-    margin:0 0 10px;
-    letter-spacing:-0.01em;
+    font-weight:700;
+    font-size:clamp(30px, 6.4vw, 64px);
+    line-height:1.1;
+    margin:0 0 14px;
+    letter-spacing:-0.015em;
   }
   .hero .role{
-    font-size:clamp(16px, 2.2vw, 20px);
+    font-size:clamp(15px, 2vw, 19px);
     color:var(--accent);
     font-family:var(--mono);
-    margin:0 0 22px;
+    margin:0 0 10px;
   }
   .hero .location{
     font-family:var(--mono);
-    font-size:13px;
+    font-size:12.5px;
     color:var(--text-dim);
-    margin:0 0 22px;
+    margin:0;
   }
 
   .flags{
     display:flex;
     flex-wrap:wrap;
+    justify-content:center;
     gap:8px;
-    margin-bottom:0;
+    margin-bottom:30px;
   }
   .flag{
     font-family:var(--mono);
@@ -207,23 +186,60 @@
     background:var(--panel);
   }
 
-  table.spec{
-    width:100%;
-    border-collapse:collapse;
+  .hero-ctas{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:44px;
+  }
+  .cta{
     font-family:var(--mono);
     font-size:13px;
+    text-decoration:none;
+    padding:10px 18px;
+    border:1px solid var(--line-strong);
+    color:var(--text);
+    background:var(--panel);
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
   }
-  table.spec caption{
-    text-align:left;
-    color:var(--text-faint);
+  .cta:hover{border-color:var(--accent); color:var(--accent);}
+  .cta.primary{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#12100B;
+    font-weight:600;
+  }
+  .cta.primary:hover{background:transparent; color:var(--accent);}
+
+  .stats{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line);
+  }
+  .stat{
+    flex:1 1 140px;
+    padding:18px 10px 30px;
+    border-right:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .val{
+    display:block;
+    font-size:22px;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .stat .lbl{
+    display:block;
     font-size:11.5px;
-    margin-bottom:10px;
+    color:var(--text-faint);
   }
-  table.spec tr{border-top:1px solid var(--line);}
-  table.spec tr:last-child{border-bottom:1px solid var(--line);}
-  table.spec td{padding:9px 2px;}
-  table.spec td:first-child{color:var(--text-dim);}
-  table.spec td:last-child{color:var(--accent); text-align:right; font-weight:600; white-space:nowrap; padding-left:10px;}
+  @media (max-width:600px){
+    .stat{flex:1 1 45%; border-bottom:1px solid var(--line);}
+  }
 
   /* ---------- Sections ---------- */
   section{
@@ -567,31 +583,32 @@
   </svg>
 
   <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-main">
-        <div class="term" id="term" aria-hidden="true"></div>
+    <div class="term" id="term" aria-hidden="true"></div>
 
-        <h1>Pradeep Kumar Balasubramanian</h1>
-        <div class="role">Embedded Software Engineer</div>
-        <div class="location">Pune, India — open to relocation</div>
+    <div class="title-block">
+      <h1>Pradeep Kumar Balasubramanian</h1>
+      <div class="role">Embedded Software Engineer</div>
+      <div class="location">Pune, India — open to relocation</div>
+    </div>
 
-        <div class="flags">
-          <span class="flag">Automotive telematics</span>
-          <span class="flag">RTOS &amp; bootloaders</span>
-          <span class="flag">CAN / UDS / J1939</span>
-          <span class="flag">C / C++ / Python</span>
-        </div>
-      </div>
+    <div class="flags">
+      <span class="flag">Automotive telematics</span>
+      <span class="flag">RTOS &amp; bootloaders</span>
+      <span class="flag">CAN / UDS / J1939</span>
+      <span class="flag">C / C++ / Python</span>
+    </div>
 
-      <div class="hero-side">
-        <table class="spec">
-          <caption>Profile characteristics</caption>
-          <tr><td>Experience</td><td>4+ years</td></tr>
-          <tr><td>Protocols</td><td>10</td></tr>
-          <tr><td>MCU / SoC platforms</td><td>8</td></tr>
-          <tr><td>Companies</td><td>3</td></tr>
-        </table>
-      </div>
+    <div class="hero-ctas">
+      <a class="cta primary" href="resume.pdf" download>Download résumé</a>
+      <a class="cta" href="https://github.com/Pradeepkumarb-dev/code-vault" target="_blank" rel="noopener">Browse code-vault</a>
+      <a class="cta" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="val">4+</span><span class="lbl">Years experience</span></div>
+      <div class="stat"><span class="val">10</span><span class="lbl">Protocols</span></div>
+      <div class="stat"><span class="val">8</span><span class="lbl">MCU / SoC platforms</span></div>
+      <div class="stat"><span class="val">3</span><span class="lbl">Companies</span></div>
     </div>
   </div>
 </header>
@@ -677,13 +694,13 @@
       <div class="module">
         <div class="module-head">
           <span class="module-id">IC1</span>
-          <a class="module-link" href="https://github.com/your-username/your-repo" target="_blank" rel="noopener">View repo →</a>
+          <a class="module-link" href="https://github.com/Pradeepkumarb-dev/code-vault" target="_blank" rel="noopener">View repo →</a>
         </div>
         <div class="module-body">
-          <h3>Project name</h3>
-          <p>One or two sentences on what it does and the problem it solves.</p>
+          <h3>code-vault</h3>
+          <p>A curated vault of personal projects and code samples — the main repository for browsing everything below in full.</p>
           <div class="module-tags">
-            <span class="bit">C</span><span class="bit">FreeRTOS</span><span class="bit">STM32</span>
+            <span class="bit">C</span><span class="bit">C++</span><span class="bit">Python</span><span class="bit">Embedded</span>
           </div>
         </div>
       </div>
