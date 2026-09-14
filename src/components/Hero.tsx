@@ -202,7 +202,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
         </div>
 
         {/* Action CTAs: Direct Download, Preview, and GitHub Code-vault */}
-        <div className="flex flex-wrap justify-center items-center gap-3.5 mb-12">
+        <div className="flex flex-wrap justify-center items-center gap-3.5 mb-10">
           
           {/* Main Download Button */}
           <a
@@ -255,12 +255,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
             <span>Pinout Contact</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
-        </div>
-
-        {/* Download File Name Confirmation Callout */}
-        <div className="max-w-xl mx-auto mb-10 p-3 rounded bg-[#10171E] border border-[#233039] text-center text-xs font-mono text-[#8B99A3] flex items-center justify-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span>Resume Asset Verified: <strong className="text-white font-medium">{RESUME_FILENAME}</strong> (Stored in repo /public)</span>
         </div>
 
         {/* Hardware & Engineering Key Stats */}
