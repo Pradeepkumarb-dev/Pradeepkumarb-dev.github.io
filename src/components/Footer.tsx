@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
             Embedded Software Engineer • Automotive Telematics &amp; RTOS Firmware
           </div>
           <div className="text-[11px] text-[#566470]">
-            Firmware build checksum: <span className="text-[#E8A33D]">0xPKB_2026_CRC32_OK</span>
+            Firmware build checksum: <span className="text-[#E8A33D]">0xPKB_2026_CRC32_OK</span> • Production Build v1.0.1
           </div>
         </div>
 
