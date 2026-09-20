@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Search, Binary, Check, Cpu } from 'lucide-react';
-import { REGISTER_MAP } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const RegisterMapSection: React.FC = () => {
+  const { registerMap } = usePortfolio();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeBit, setActiveBit] = useState<string | null>(null);
 
   const query = (searchTerm || '').toLowerCase();
-  const filteredMap = REGISTER_MAP.filter(reg => 
+  const filteredMap = registerMap.filter(reg => 
     (reg.name || '').toLowerCase().includes(query) ||
     (reg.description || '').toLowerCase().includes(query) ||
     (reg.bits || []).some(b => (b || '').toLowerCase().includes(query))
@@ -65,37 +66,44 @@ export const RegisterMapSection: React.FC = () => {
                 </span>
               </div>
 
-              {/* Bit fields */}
-              <div className="p-4 flex flex-wrap gap-2">
-                {reg.bits.map((bit, bitIdx) => {
-                  const isSelected = activeBit === bit;
-
+              {/* Bitfield Grid */}
+              <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                {reg.bits.map((bit, bIdx) => {
+                  const isSelected = activeBit === `${reg.address}-${bIdx}`;
                   return (
                     <button
-                      key={bit}
-                      onClick={() => setActiveBit(isSelected ? null : bit)}
-                      className={`px-3 py-1.5 rounded text-xs transition-all flex items-center gap-2 ${
+                      key={bIdx}
+                      onClick={() => setActiveBit(isSelected ? null : `${reg.address}-${bIdx}`)}
+                      className={`text-left p-2.5 rounded border transition-all ${
                         isSelected
-                          ? 'bg-[#E8A33D] text-[#0B1015] font-semibold ring-2 ring-[#E8A33D]/50 shadow'
-                          : 'bg-[#0B1015] text-[#A4B3BF] hover:text-white border border-[#233039] hover:border-[#E8A33D]/50'
+                          ? 'bg-[#E8A33D]/15 border-[#E8A33D] text-[#E8A33D]'
+                          : 'bg-[#0D1319] border-[#1E2C38] hover:border-[#354550] text-[#E4EAEE]'
                       }`}
                     >
-                      <span className="text-[10px] opacity-70">
-                        BIT[{bitIdx}]:
-                      </span>
-                      <span>{bit}</span>
+                      <div className="text-[10px] text-[#566470] mb-0.5 flex justify-between">
+                        <span>bit[{bIdx}]</span>
+                        {isSelected && <Check className="w-2.5 h-2.5 text-[#E8A33D]" />}
+                      </div>
+                      <div className="text-xs font-semibold truncate" title={bit}>
+                        {bit}
+                      </div>
                     </button>
                   );
                 })}
               </div>
+
+              {/* Bit detail drawer if selected */}
+              {activeBit && activeBit.startsWith(reg.address) && (
+                <div className="px-4 py-2.5 bg-[#080D11] border-t border-[#1E2C38] text-xs flex items-center justify-between text-[#8B99A3]">
+                  <div className="flex items-center gap-2">
+                    <Binary className="w-3.5 h-3.5 text-[#E8A33D]" />
+                    <span>Selected Bit: <strong className="text-white">{reg.bits[parseInt(activeBit.split('-')[1])] || ''}</strong></span>
+                  </div>
+                  <span className="text-[#566470] text-[11px]">Hardware Verified • Production Validated</span>
+                </div>
+              )}
             </div>
           ))}
-
-          {filteredMap.length === 0 && (
-            <div className="text-center py-8 text-xs font-mono text-[#8B99A3] bg-[#10171E] border border-dashed border-[#233039] rounded-lg">
-              No register entries found matching "{searchTerm}".
-            </div>
-          )}
         </div>
 
       </div>

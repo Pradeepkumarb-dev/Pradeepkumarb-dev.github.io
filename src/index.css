@@ -60,7 +60,7 @@
 }
 
 .amber-glow-sm {
-  box-shadow: 0 0 8px 0 rgba(232, 163, 61, 0.25);
+  box-shadow: 0 0 8px -1px rgba(232, 163, 61, 0.30);
 }
 
 @keyframes pulseTrace {
@@ -70,4 +70,39 @@
 
 .animate-pulse-trace {
   animation: pulseTrace 3s ease-in-out infinite;
+}
+
+/* Professional LaTeX Print & PDF Styles */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-document-sheet,
+  #resume-document-sheet * {
+    visibility: visible;
+  }
+
+  #resume-document-sheet {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  @page {
+    size: letter portrait;
+    margin: 0.4in 0.45in;
+  }
 }

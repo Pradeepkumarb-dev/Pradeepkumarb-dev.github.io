@@ -1,8 +1,10 @@
 import React from 'react';
 import { GraduationCap, BookOpen, Globe2, Award, Calendar, MapPin } from 'lucide-react';
-import { EDUCATION, PUBLICATION } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const EducationPublicationSection: React.FC = () => {
+  const { education, publication } = usePortfolio();
+
   return (
     <section id="education" className="py-16 border-b border-[#233039]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -31,7 +33,7 @@ export const EducationPublicationSection: React.FC = () => {
             </h3>
 
             <div className="space-y-4">
-              {EDUCATION.map((edu, idx) => (
+              {education.map((edu, idx) => (
                 <div
                   key={idx}
                   className="bg-[#10171E] border border-[#233039] hover:border-[#354550] rounded-lg p-5 transition-all"
@@ -86,20 +88,20 @@ export const EducationPublicationSection: React.FC = () => {
               <div className="bg-[#10171E] border border-[#233039] hover:border-[#354550] rounded-lg p-5 transition-all">
                 <div className="flex items-center gap-2 text-xs font-mono text-[#E8A33D] mb-2">
                   <Award className="w-4 h-4 text-[#E8A33D]" />
-                  <span>IJERT — {PUBLICATION.conference} ({PUBLICATION.year})</span>
+                  <span>IJERT — {publication.conference} ({publication.year})</span>
                 </div>
 
                 <h4 className="text-sm font-bold font-mono text-white mb-2 leading-snug">
-                  "{PUBLICATION.title}"
+                  "{publication.title}"
                 </h4>
 
                 <p className="text-xs text-[#8B99A3] leading-relaxed mb-3">
-                  {PUBLICATION.description}
+                  {publication.description}
                 </p>
 
                 <div className="p-2.5 rounded bg-[#0D1319] border border-[#1C2731] text-[11px] font-mono text-[#A4B3BF]">
                   <strong>Citation: </strong>
-                  {PUBLICATION.journal}, {PUBLICATION.volume}.
+                  {publication.journal}, {publication.volume}.
                 </div>
               </div>
             </div>

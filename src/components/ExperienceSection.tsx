@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Briefcase, Calendar, MapPin, Cpu, CheckCircle2, ChevronRight, Layers } from 'lucide-react';
-import { WORK_EXPERIENCES } from '../data/portfolioData';
+import { Briefcase, Calendar, MapPin, Cpu, ChevronRight, Edit3, Sparkles } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const ExperienceSection: React.FC = () => {
-  const [expandedId, setExpandedId] = useState<string>(WORK_EXPERIENCES[0].id);
+  const { workExperiences, setIsEditModalOpen } = usePortfolio();
+  const [expandedId, setExpandedId] = useState<string>(workExperiences[0]?.id || '');
 
   return (
     <section id="experience" className="py-16 border-b border-[#233039]">
@@ -21,14 +22,24 @@ export const ExperienceSection: React.FC = () => {
               Work Experience
             </h2>
           </div>
-          <p className="text-xs font-mono text-[#8B99A3]">
-            Production firmware architecture across automotive tier-1 telematics &amp; industrial IoT.
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <p className="text-xs font-mono text-[#8B99A3]">
+              Production firmware architecture across automotive tier-1 telematics &amp; industrial IoT.
+            </p>
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#16202A] hover:bg-[#233039] text-[#E8A33D] hover:text-[#F59E0B] border border-[#233039] text-xs font-mono transition-colors self-start sm:self-auto"
+              title="Edit experiences or paste raw text to auto-parse"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>Edit / Paste Experience</span>
+            </button>
+          </div>
         </div>
 
         {/* Timeline List */}
         <div className="space-y-6">
-          {WORK_EXPERIENCES.map((job) => {
+          {workExperiences.map((job) => {
             const isExpanded = expandedId === job.id;
 
             return (

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Mail, Phone, Linkedin, Github, MapPin, Copy, Check, ExternalLink, Cpu, Download } from 'lucide-react';
-import { PERSONAL_INFO, RESUME_FILENAME, RESUME_DOWNLOAD_URL } from '../data/portfolioData';
+import { Mail, Phone, Linkedin, Github, MapPin, Copy, Check, ExternalLink, Cpu, Download, Globe } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 interface ContactPinoutProps {
   onOpenResumeModal: () => void;
 }
 
 export const ContactPinoutSection: React.FC<ContactPinoutProps> = ({ onOpenResumeModal }) => {
+  const { personalInfo, resumeFileName, resumeDownloadUrl } = usePortfolio();
   const [copiedPin, setCopiedPin] = useState<string | null>(null);
 
   const copyToClipboard = (text: string, pinLabel: string) => {
@@ -19,43 +20,53 @@ export const ContactPinoutSection: React.FC<ContactPinoutProps> = ({ onOpenResum
     {
       num: 'PIN 1',
       label: 'EMAIL_PRIMARY',
-      value: PERSONAL_INFO.email,
-      href: `mailto:${PERSONAL_INFO.email}`,
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
       copyable: true,
       description: 'Official recruiter & business communications'
     },
     {
       num: 'PIN 2',
       label: 'PHONE_VOICE',
-      value: PERSONAL_INFO.phone,
-      href: `tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`,
+      value: personalInfo.phone,
+      href: `tel:${personalInfo.phone.replace(/\s+/g, '')}`,
       copyable: true,
       description: 'Direct mobile line (IST / UTC+5:30)'
     },
     {
       num: 'PIN 3',
+      label: 'PORTFOLIO_WEB',
+      value: personalInfo.website,
+      href: personalInfo.website,
+      external: true,
+      copyable: true,
+      highlight: true,
+      description: 'Live production portfolio & interactive terminals'
+    },
+    {
+      num: 'PIN 4',
       label: 'LINKEDIN_BUS',
       value: 'linkedin.com/in/pradeepkumarbofficial',
-      href: PERSONAL_INFO.linkedin,
+      href: personalInfo.linkedin,
       external: true,
       description: 'Professional networking & endorsements'
     },
     {
-      num: 'PIN 4',
+      num: 'PIN 5',
       label: 'GITHUB_VCS',
       value: 'github.com/Pradeepkumarb-dev',
-      href: PERSONAL_INFO.github,
+      href: personalInfo.github,
       external: true,
       description: 'Public repositories, drivers & code-vault'
     },
     {
-      num: 'PIN 5',
+      num: 'PIN 6',
       label: 'GEO_LOCATION',
-      value: `${PERSONAL_INFO.location} (${PERSONAL_INFO.relocation})`,
+      value: `${personalInfo.location} (${personalInfo.relocation})`,
       description: 'Current base & mobility readiness'
     },
     {
-      num: 'PIN 6',
+      num: 'PIN 7',
       label: 'SYS_STATUS',
       value: 'AVAILABLE / INTERVIEW READY',
       highlight: true,
@@ -182,17 +193,17 @@ export const ContactPinoutSection: React.FC<ContactPinoutProps> = ({ onOpenResum
             <div className="flex items-center gap-2">
               <button
                 onClick={onOpenResumeModal}
-                className="px-3 py-1 text-xs text-[#E8A33D] hover:underline"
+                className="px-3 py-1.5 rounded bg-[#16202A] text-[#E4EAEE] hover:text-white border border-[#233039] hover:border-[#E8A33D] text-xs font-mono transition-colors"
               >
-                Preview on screen
+                Preview Resume
               </button>
               <a
-                href={RESUME_DOWNLOAD_URL}
-                download={RESUME_FILENAME}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#E8A33D] text-[#0B1015] font-semibold hover:bg-[#F59E0B] transition-colors"
+                href={resumeDownloadUrl}
+                download={resumeFileName}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#E8A33D] text-[#0B1015] font-semibold hover:bg-[#F59E0B] transition-colors"
               >
-                <Download className="w-3 h-3" />
-                <span>Download {RESUME_FILENAME}</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Download Resume</span>
               </a>
             </div>
           </div>

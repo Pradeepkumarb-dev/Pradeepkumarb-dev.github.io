@@ -1,8 +1,10 @@
 import React from 'react';
-import { ChevronUp, Github, Linkedin, Mail, Download } from 'lucide-react';
-import { PERSONAL_INFO, RESUME_FILENAME, RESUME_DOWNLOAD_URL } from '../data/portfolioData';
+import { ChevronUp, Github, Linkedin, Mail, Download, Lock, KeyRound } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const Footer: React.FC = () => {
+  const { personalInfo, resumeFileName, resumeDownloadUrl, setIsEditModalOpen, isOwner } = usePortfolio();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -12,20 +14,27 @@ export const Footer: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
         <div className="space-y-1 text-center md:text-left">
-          <div className="text-white font-semibold">
-            {PERSONAL_INFO.fullName}
+          <div className="text-white font-semibold flex items-center justify-center md:justify-start gap-2">
+            <span>{personalInfo.fullName}</span>
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              className="text-[#566470] hover:text-[#E8A33D] transition-colors p-0.5"
+              title="Owner Editor"
+            >
+              <Lock className="w-3 h-3" />
+            </button>
           </div>
           <div className="text-[#566470]">
             Embedded Software Engineer • Automotive Telematics &amp; RTOS Firmware
           </div>
           <div className="text-[11px] text-[#566470]">
-            Firmware build checksum: <span className="text-[#E8A33D]">0xPKB_2026_CRC32_OK</span> • Production Build v1.0.1
+            Firmware build checksum: <span className="text-[#E8A33D]">0xPKB_2026_CRC32_OK</span> • Production Build v1.1.0
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
           <a
-            href={PERSONAL_INFO.codeVault}
+            href={personalInfo.codeVault}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1 text-white font-semibold"
@@ -35,7 +44,7 @@ export const Footer: React.FC = () => {
           </a>
           <span>•</span>
           <a
-            href={PERSONAL_INFO.github}
+            href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1"
@@ -45,7 +54,7 @@ export const Footer: React.FC = () => {
           </a>
           <span>•</span>
           <a
-            href={PERSONAL_INFO.linkedin}
+            href={personalInfo.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1"
@@ -55,7 +64,7 @@ export const Footer: React.FC = () => {
           </a>
           <span>•</span>
           <a
-            href={`mailto:${PERSONAL_INFO.email}`}
+            href={`mailto:${personalInfo.email}`}
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1"
           >
             <Mail className="w-3.5 h-3.5" />
@@ -63,12 +72,12 @@ export const Footer: React.FC = () => {
           </a>
           <span>•</span>
           <a
-            href={RESUME_DOWNLOAD_URL}
-            download={RESUME_FILENAME}
+            href={resumeDownloadUrl}
+            download={resumeFileName}
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1 text-[#E8A33D]"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>{RESUME_FILENAME}</span>
+            <span>{resumeFileName}</span>
           </a>
         </div>
 

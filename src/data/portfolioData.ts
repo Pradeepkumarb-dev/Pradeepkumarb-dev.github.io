@@ -16,6 +16,7 @@ export const PERSONAL_INFO = {
   linkedin: 'https://linkedin.com/in/pradeepkumarbofficial',
   github: 'https://github.com/Pradeepkumarb-dev',
   codeVault: 'https://github.com/Pradeepkumarb-dev/code-vault',
+  website: 'https://pradeepkumarb-dev.github.io/',
   experienceYears: '4+',
   protocolsCount: '10+',
   platformsCount: '8+',

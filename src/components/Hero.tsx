@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, Github, Mail, Terminal, Cpu, ShieldCheck, ArrowRight, Play, CheckCircle2 } from 'lucide-react';
-import { PERSONAL_INFO, RESUME_FILENAME, RESUME_DOWNLOAD_URL } from '../data/portfolioData';
+import { Download, FileText, Github, Mail, Terminal, Cpu, ShieldCheck, ArrowRight, Play, CheckCircle2, Sparkles } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
 
 interface HeroProps {
   onOpenResumeModal: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
+  const { personalInfo, resumeFileName, resumeDownloadUrl, setIsResumeModalOpen, setIsEditModalOpen } = usePortfolio();
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const [cmdInput, setCmdInput] = useState('');
   const [downloadSuccess, setDownloadSuccess] = useState(false);
@@ -46,7 +47,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
     } else if (trimmed === 'sysinfo') {
       response = `> MCU: Renesas RA / STM32 | RTOS: FreeRTOS | Stack: C/C++/Python | CAN 2.0B & J1939`;
     } else if (trimmed === 'cat resume' || trimmed === 'resume') {
-      response = `> Opening resume preview for ${RESUME_FILENAME} ...`;
+      response = `> Opening resume preview for ${resumeFileName} ...`;
       onOpenResumeModal();
     } else if (trimmed === 'canbus') {
       response = `> CAN Bus: Baud=500kbps, Arbitration ID=0x7DF, Diagnostic UDS Session Active`;
@@ -170,15 +171,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-mono tracking-tight text-white mb-3">
-            {PERSONAL_INFO.fullName}
+            {personalInfo.fullName}
           </h1>
 
           <p className="text-lg sm:text-xl font-mono text-[#E8A33D] font-medium mb-2">
-            {PERSONAL_INFO.title}
+            {personalInfo.title}
           </p>
 
           <p className="text-xs sm:text-sm font-mono text-[#8B99A3]">
-            {PERSONAL_INFO.location} — <span className="text-emerald-400 font-semibold">{PERSONAL_INFO.relocation}</span>
+            {personalInfo.location} — <span className="text-emerald-400 font-semibold">{personalInfo.relocation}</span>
           </p>
         </div>
 
@@ -207,38 +208,38 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
           {/* Main Download Button */}
           <a
             id="hero-download-resume-btn"
-            href={RESUME_DOWNLOAD_URL}
-            download={RESUME_FILENAME}
+            href={resumeDownloadUrl}
+            download={resumeFileName}
             onClick={handleDownloadClick}
             className="inline-flex items-center gap-2.5 px-6 py-3 font-mono text-sm font-semibold bg-[#E8A33D] text-[#0B1015] hover:bg-[#F59E0B] rounded transition-all shadow-lg amber-glow transform active:scale-95"
-            title={`Download ${RESUME_FILENAME}`}
+            title={`Download ${resumeFileName}`}
           >
             {downloadSuccess ? (
               <>
                 <CheckCircle2 className="w-4 h-4 text-[#0B1015]" />
-                <span>Downloading {RESUME_FILENAME}...</span>
+                <span>Downloading {resumeFileName}...</span>
               </>
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>Download Résumé (PDF)</span>
+                <span>Download Resume</span>
               </>
             )}
           </a>
 
-          {/* Preview CV Modal Button */}
+          {/* Preview Resume Modal Button */}
           <button
             id="hero-preview-resume-btn"
             onClick={onOpenResumeModal}
             className="inline-flex items-center gap-2 px-5 py-3 font-mono text-sm text-[#E4EAEE] bg-[#10171E] hover:bg-[#16202A] border border-[#354550] hover:border-[#E8A33D] rounded transition-all shadow-sm"
           >
             <FileText className="w-4 h-4 text-[#E8A33D]" />
-            <span>Preview CV Online</span>
+            <span>Preview Resume</span>
           </button>
 
           {/* GitHub Code-Vault */}
           <a
-            href={PERSONAL_INFO.codeVault}
+            href={personalInfo.codeVault}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-3 font-mono text-sm text-[#8B99A3] hover:text-[#E4EAEE] bg-[#10171E] hover:bg-[#16202A] border border-[#233039] hover:border-[#354550] rounded transition-all"
@@ -261,7 +262,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto pt-6 border-t border-[#233039]">
           <div className="p-4 rounded bg-[#10171E] border border-[#233039] text-center font-mono">
             <span className="block text-2xl sm:text-3xl font-bold text-[#E8A33D] mb-1">
-              {PERSONAL_INFO.experienceYears}
+              {personalInfo.experienceYears}
             </span>
             <span className="block text-xs text-[#8B99A3]">
               Years Engineering Exp
@@ -270,7 +271,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
 
           <div className="p-4 rounded bg-[#10171E] border border-[#233039] text-center font-mono">
             <span className="block text-2xl sm:text-3xl font-bold text-[#E8A33D] mb-1">
-              {PERSONAL_INFO.protocolsCount}
+              {personalInfo.protocolsCount}
             </span>
             <span className="block text-xs text-[#8B99A3]">
               Protocols Mastered
@@ -279,7 +280,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
 
           <div className="p-4 rounded bg-[#10171E] border border-[#233039] text-center font-mono">
             <span className="block text-2xl sm:text-3xl font-bold text-[#E8A33D] mb-1">
-              {PERSONAL_INFO.platformsCount}
+              {personalInfo.platformsCount}
             </span>
             <span className="block text-xs text-[#8B99A3]">
               MCU / SoC Architectures
