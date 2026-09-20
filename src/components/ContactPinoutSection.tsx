@@ -7,7 +7,7 @@ interface ContactPinoutProps {
 }
 
 export const ContactPinoutSection: React.FC<ContactPinoutProps> = ({ onOpenResumeModal }) => {
-  const { personalInfo, resumeFileName, resumeDownloadUrl } = usePortfolio();
+  const { personalInfo, resumeFileName, resumeDownloadUrl, downloadResumePdf } = usePortfolio();
   const [copiedPin, setCopiedPin] = useState<string | null>(null);
 
   const copyToClipboard = (text: string, pinLabel: string) => {
@@ -197,14 +197,14 @@ export const ContactPinoutSection: React.FC<ContactPinoutProps> = ({ onOpenResum
               >
                 Preview Resume
               </button>
-              <a
-                href={resumeDownloadUrl}
-                download={resumeFileName}
+              <button
+                onClick={downloadResumePdf}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#E8A33D] text-[#0B1015] font-semibold hover:bg-[#F59E0B] transition-colors"
+                title={`Download LaTeX PDF ${resumeFileName}`}
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download Resume</span>
-              </a>
+              </button>
             </div>
           </div>
 

@@ -21,7 +21,8 @@ function PortfolioApp() {
     setIsEditModalOpen,
     isOwner,
     resumeFileName,
-    resumeDownloadUrl
+    resumeDownloadUrl,
+    downloadResumePdf
   } = usePortfolio();
 
   return (
@@ -94,16 +95,15 @@ function PortfolioApp() {
           <span>Preview Resume</span>
         </button>
 
-        <a
-          href={resumeDownloadUrl}
-          download={resumeFileName}
+        <button
+          onClick={downloadResumePdf}
           className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E8A33D] hover:bg-[#F59E0B] text-[#0B1015] font-mono text-xs font-semibold shadow-md amber-glow-sm transition-all"
-          title={`Download ${resumeFileName}`}
+          title={`Download LaTeX PDF ${resumeFileName}`}
         >
           <FileDown className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Download Resume</span>
           <span className="sm:hidden">PDF</span>
-        </a>
+        </button>
       </div>
 
     </div>

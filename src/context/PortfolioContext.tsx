@@ -10,6 +10,8 @@ import {
   RESUME_FILENAME,
   RESUME_DOWNLOAD_URL
 } from '../data/portfolioData';
+import { generateLatexStylePdf } from '../utils/pdfResumeGenerator';
+import { captureExactPreviewPdf } from '../utils/previewPdfExporter';
 
 export type PersonalInfoType = typeof DEFAULT_PERSONAL_INFO;
 export type PublicationType = typeof DEFAULT_PUBLICATION;
@@ -23,6 +25,7 @@ interface PortfolioContextType {
   publication: PublicationType;
   resumeFileName: string;
   resumeDownloadUrl: string;
+  downloadResumePdf: () => void;
   
   // Owner Authentication & Modal controls
   isOwner: boolean;
@@ -300,6 +303,25 @@ export const WORK_EXPERIENCES = ${JSON.stringify(workExperiences, null, 2)};
 `;
   };
 
+  const downloadResumePdf = async () => {
+    try {
+      const doc = generateLatexStylePdf({
+        ...personalInfo,
+        workExperiences,
+        registerMap,
+        education,
+        publication
+      });
+      doc.save(RESUME_FILENAME);
+    } catch (e) {
+      console.error('Failed to generate vector 1-page PDF, falling back to static asset', e);
+      const a = document.createElement('a');
+      a.href = RESUME_DOWNLOAD_URL;
+      a.download = RESUME_FILENAME;
+      a.click();
+    }
+  };
+
   return (
     <PortfolioContext.Provider
       value={{
@@ -311,6 +333,7 @@ export const WORK_EXPERIENCES = ${JSON.stringify(workExperiences, null, 2)};
         publication,
         resumeFileName: RESUME_FILENAME,
         resumeDownloadUrl: RESUME_DOWNLOAD_URL,
+        downloadResumePdf,
         isOwner,
         authenticateOwner,
         logoutOwner,

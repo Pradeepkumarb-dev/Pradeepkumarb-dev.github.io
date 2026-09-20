@@ -24,7 +24,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
     education,
     publication,
     resumeFileName,
-    resumeDownloadUrl
+    resumeDownloadUrl,
+    downloadResumePdf
   } = usePortfolio();
 
   const isOpen = propIsOpen !== undefined ? propIsOpen : isResumeModalOpen;
@@ -32,6 +33,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
   const [copiedTex, setCopiedTex] = useState(false);
   const [viewMode, setViewMode] = useState<'paper' | 'dark'>('paper');
+  const [isDownloading, setIsDownloading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -55,6 +57,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadPdf = async () => {
+    setIsDownloading(true);
+    try {
+      await downloadResumePdf();
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const handleDownloadTex = () => {
@@ -242,12 +253,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
             {/* SECTION 1: PROFESSIONAL SUMMARY */}
             <div className="mt-4">
-              <div className={`flex items-baseline justify-between border-b pb-0.5 mb-1.5 ${
-                viewMode === 'paper' ? 'border-gray-800 text-black' : 'border-[#233039] text-[#E8A33D]'
-              }`}>
-                <h2 className="text-[13px] font-bold tracking-wider uppercase">
+              <div className="mb-2">
+                <h2 className={`text-[13px] font-bold tracking-wider uppercase mb-1 ${
+                  viewMode === 'paper' ? 'text-black' : 'text-[#E8A33D]'
+                }`}>
                   Professional Summary
                 </h2>
+                <div className={`h-[1.5px] w-full ${viewMode === 'paper' ? 'bg-[#1F2937]' : 'bg-[#233039]'}`} />
               </div>
               <p className={`text-[11.5px] leading-relaxed text-justify ${
                 viewMode === 'paper' ? 'text-[#1F2937]' : 'text-[#B4C2CC]'
@@ -258,12 +270,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
             {/* SECTION 2: TECHNICAL SKILLS */}
             <div className="mt-4">
-              <div className={`flex items-baseline justify-between border-b pb-0.5 mb-1.5 ${
-                viewMode === 'paper' ? 'border-gray-800 text-black' : 'border-[#233039] text-[#E8A33D]'
-              }`}>
-                <h2 className="text-[13px] font-bold tracking-wider uppercase">
+              <div className="mb-2">
+                <h2 className={`text-[13px] font-bold tracking-wider uppercase mb-1 ${
+                  viewMode === 'paper' ? 'text-black' : 'text-[#E8A33D]'
+                }`}>
                   Technical Skills
                 </h2>
+                <div className={`h-[1.5px] w-full ${viewMode === 'paper' ? 'bg-[#1F2937]' : 'bg-[#233039]'}`} />
               </div>
 
               <div className="space-y-1 text-[11.5px] leading-tight">
@@ -284,12 +297,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
             {/* SECTION 3: WORK EXPERIENCE */}
             <div className="mt-4">
-              <div className={`flex items-baseline justify-between border-b pb-0.5 mb-2 ${
-                viewMode === 'paper' ? 'border-gray-800 text-black' : 'border-[#233039] text-[#E8A33D]'
-              }`}>
-                <h2 className="text-[13px] font-bold tracking-wider uppercase">
+              <div className="mb-2">
+                <h2 className={`text-[13px] font-bold tracking-wider uppercase mb-1 ${
+                  viewMode === 'paper' ? 'text-black' : 'text-[#E8A33D]'
+                }`}>
                   Work Experience
                 </h2>
+                <div className={`h-[1.5px] w-full ${viewMode === 'paper' ? 'bg-[#1F2937]' : 'bg-[#233039]'}`} />
               </div>
 
               <div className="space-y-3.5">
@@ -337,12 +351,13 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
 
             {/* SECTION 4: EDUCATION & PUBLICATIONS */}
             <div className="mt-4">
-              <div className={`flex items-baseline justify-between border-b pb-0.5 mb-1.5 ${
-                viewMode === 'paper' ? 'border-gray-800 text-black' : 'border-[#233039] text-[#E8A33D]'
-              }`}>
-                <h2 className="text-[13px] font-bold tracking-wider uppercase">
+              <div className="mb-2">
+                <h2 className={`text-[13px] font-bold tracking-wider uppercase mb-1 ${
+                  viewMode === 'paper' ? 'text-black' : 'text-[#E8A33D]'
+                }`}>
                   Education &amp; Research Publication
                 </h2>
+                <div className={`h-[1.5px] w-full ${viewMode === 'paper' ? 'bg-[#1F2937]' : 'bg-[#233039]'}`} />
               </div>
 
               <div className="space-y-2 text-[11.5px]">
@@ -382,14 +397,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
           </div>
 
           <div className="flex items-center gap-2.5">
-            <a
-              href={resumeDownloadUrl}
-              download={resumeFileName}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#16202A] hover:bg-[#233039] text-[#E4EAEE] border border-[#233039] font-medium transition-colors"
+            <button
+              onClick={handleDownloadPdf}
+              disabled={isDownloading}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#16202A] hover:bg-[#233039] text-[#E4EAEE] border border-[#233039] font-medium transition-colors disabled:opacity-50"
+              title="Download exact preview layout as PDF"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download Resume</span>
-            </a>
+              <Download className={`w-3.5 h-3.5 text-[#E8A33D] ${isDownloading ? 'animate-bounce' : ''}`} />
+              <span>{isDownloading ? 'Generating PDF...' : 'Download PDF'}</span>
+            </button>
 
             <button
               onClick={handlePrint}

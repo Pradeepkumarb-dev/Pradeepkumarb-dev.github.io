@@ -7,7 +7,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
-  const { personalInfo, resumeFileName, resumeDownloadUrl, setIsResumeModalOpen, setIsEditModalOpen } = usePortfolio();
+  const { personalInfo, resumeFileName, resumeDownloadUrl, downloadResumePdf, setIsResumeModalOpen, setIsEditModalOpen } = usePortfolio();
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const [cmdInput, setCmdInput] = useState('');
   const [downloadSuccess, setDownloadSuccess] = useState(false);
@@ -206,13 +206,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
         <div className="flex flex-wrap justify-center items-center gap-3.5 mb-10">
           
           {/* Main Download Button */}
-          <a
+          <button
             id="hero-download-resume-btn"
-            href={resumeDownloadUrl}
-            download={resumeFileName}
-            onClick={handleDownloadClick}
+            onClick={() => {
+              handleDownloadClick();
+              downloadResumePdf();
+            }}
             className="inline-flex items-center gap-2.5 px-6 py-3 font-mono text-sm font-semibold bg-[#E8A33D] text-[#0B1015] hover:bg-[#F59E0B] rounded transition-all shadow-lg amber-glow transform active:scale-95"
-            title={`Download ${resumeFileName}`}
+            title={`Download LaTeX PDF ${resumeFileName}`}
           >
             {downloadSuccess ? (
               <>
@@ -225,7 +226,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResumeModal }) => {
                 <span>Download Resume</span>
               </>
             )}
-          </a>
+          </button>
 
           {/* Preview Resume Modal Button */}
           <button

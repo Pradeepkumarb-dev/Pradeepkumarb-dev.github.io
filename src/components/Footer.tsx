@@ -3,7 +3,7 @@ import { ChevronUp, Github, Linkedin, Mail, Download, Lock, KeyRound } from 'luc
 import { usePortfolio } from '../context/PortfolioContext';
 
 export const Footer: React.FC = () => {
-  const { personalInfo, resumeFileName, resumeDownloadUrl, setIsEditModalOpen, isOwner } = usePortfolio();
+  const { personalInfo, resumeFileName, resumeDownloadUrl, downloadResumePdf, setIsEditModalOpen, isOwner } = usePortfolio();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -71,14 +71,14 @@ export const Footer: React.FC = () => {
             <span>Email</span>
           </a>
           <span>•</span>
-          <a
-            href={resumeDownloadUrl}
-            download={resumeFileName}
+          <button
+            onClick={downloadResumePdf}
             className="hover:text-[#E8A33D] transition-colors flex items-center gap-1 text-[#E8A33D]"
+            title="Download LaTeX-formatted PDF Resume"
           >
             <Download className="w-3.5 h-3.5" />
             <span>{resumeFileName}</span>
-          </a>
+          </button>
         </div>
 
         <div>
